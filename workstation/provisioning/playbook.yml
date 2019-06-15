@@ -1,0 +1,27 @@
+---
+- hosts: all
+
+  gather_facts: True
+
+  vars:
+    terraform_ver:  '0.11.14'
+    git_version:    '2.16.2'
+    packer_version: '1.4.1'
+  
+  tasks:
+    - name: create directory if they don't exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: 0775
+      with_items:
+        - ~/projects
+        - ~/tmp
+
+  roles:
+    - andrewrothstein.terraform
+    - { role: geerlingguy.git, become: yes }
+    - { role: geerlingguy.ansible-role-packer, become: yes }
+#    - { role: christiangda.awscli, become: yes }
