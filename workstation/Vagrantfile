@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "geerlingguy/centos7"
+  config.vm.box = "bento/centos-7.6"
 
   config.vm.provision "ansible_local" do |ansible|
     ansible.install_mode = "pip"
@@ -20,7 +20,9 @@ Vagrant.configure("2") do |config|
 	  ansible.galaxy_role_file = "provisioning/requirements.yml"
     ansible.galaxy_roles_path = "//home/vagrant/.ansible/roles/"
     ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
-
+    ansible.raw_arguments  = [
+      "--deprecation_warnings=false",
+   ]    
     ansible.playbook = "provisioning/playbook.yml"
 
   end

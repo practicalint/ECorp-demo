@@ -24,4 +24,4 @@
     - andrewrothstein.terraform
     - { role: geerlingguy.git, become: yes }
     - { role: geerlingguy.ansible-role-packer, become: yes }
-#    - { role: christiangda.awscli, become: yes }
+    - { role: christiangda.awscli, become: yes }
