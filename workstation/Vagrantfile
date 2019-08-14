@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/centos-7.6"
 
   config.vm.provision "ansible_local" do |ansible|
+    ansible.pip_install_cmd = "curl https://bootstrap.pypa.io/get-pip.py | sudo python"
     ansible.install_mode = "pip"
     ansible.version = "2.8.0"
 	  ansible.galaxy_role_file = "provisioning/requirements.yml"
@@ -24,9 +25,18 @@ Vagrant.configure("2") do |config|
 
   end
 
-# bring git config over
-  config.vm.provision "file", source: "#{ENV['USERPROFILE']}/\.gitconfig", destination: ".gitconfig"
-  config.vm.provision "file", source: "#{ENV['USERPROFILE']}/\.aws", destination: "~/.aws"
+# bring git and aws config over
+  if Vagrant::Util::Platform.windows?
+    target_path = "#{ENV['USERPROFILE']}/\"
+  else
+#    target_path = "#{ENV['HOME']}/"
+#    target_path = ENV['HOME'].gsub(/\\/,'/')
+    target_path = ENV['HOME']
+  end
+  config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
+  config.vm.provision "file", source: "~/.aws", destination: "~/.aws"
+#  config.vm.provision "file", source: "#{ENV['USERPROFILE']}/\.gitconfig", destination: ".gitconfig"
+#  config.vm.provision "file", source: "#{ENV['USERPROFILE']}/\.aws", destination: "~/.aws"
 
 
   # Disable automatic box update checking. If you disable this, then

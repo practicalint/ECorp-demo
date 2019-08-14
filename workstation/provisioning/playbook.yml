@@ -23,5 +23,6 @@
   roles:
     - andrewrothstein.terraform
     - { role: geerlingguy.git, become: yes }
-    - { role: geerlingguy.ansible-role-packer, become: yes }
+# apparently renamed    - { role: geerlingguy.ansible-role-packer, become: yes }
+    - { role: geerlingguy.packer, become: yes }
     - { role: christiangda.awscli, become: yes }

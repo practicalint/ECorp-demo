@@ -1,5 +1,6 @@
 # Install roles from the Ansible Galaxy
 - src: andrewrothstein.terraform
-- src: geerlingguy.ansible-role-packer
+# renamed apparently - src: geerlingguy.ansible-role-packer
+- src: geerlingguy.packer
 - src: geerlingguy.git
 - src: christiangda.awscli
